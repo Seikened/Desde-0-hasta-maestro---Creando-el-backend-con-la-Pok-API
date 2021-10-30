@@ -1,5 +1,5 @@
 const express = require('express');
-const passport = require('passport');
+var passport = require("passport");
 require('./auth')(passport);
 
 const app = express();
@@ -13,13 +13,12 @@ app.get("/", (req, res) => {
 });
 
 
-
-//▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
-
-
 app.post('/login' , (req, res) => {
+    res.status(200).json(
+        {token: 'token_test'}
+    )
+});
 
-})
 app.post("/team/pokemons", () => {
     res.status(200).send("Hello World!")
 })
@@ -28,9 +27,11 @@ app.post("/team/pokemons", () => {
 
 app.get("/team",
     passport.authenticate('jwt', {session: false}), 
-(req,res, next) => {
+(req,res) => {
     res.status(200).send("Hello World!")
 })
+
+
 
 app.delete("/team/pokemon:pokeid", () => {
     res.status(200).send("Hello World!")
