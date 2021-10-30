@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken');
 
 const usersController = require('./controllers/users.js');
 usersController.registerUser('seiken', '2131');
-
 require('./auth')(passport);
 
 const app = express();
@@ -20,22 +19,26 @@ app.get("/", (req, res) => {
     res.status(200).send("Hello World!")
 });
 
-
 app.post('/login' , (req, res) => {
+    if (!req.body){
+        return res.status(400).json({message: "Missing data"});
+    } else if (!req.body.user || !req.body.password){
+        return res.status(400).json({message: "Missing data"});
+    }
     // Comprobamos credenciales
     usersController.checkUserCredentials(req.body.user, req.body.password, (err, result) => {
         //Si no son validad error
-        if(!result){
-            return res.status(401).json({message : "Usuario o contraseña incorrectos"});
+        if( err || !result){
+            return res.status(401).json({message: "Invalid credentials"});
         }
-    })
-    
-    //Si son validas, generamos un JWT y lo devolvemos
-    const token = jwt.sign({userId: req.body.user});
-    res.status(200).json(
-        {token: token}
-    )
+        //Si son validas, generamos un JWT y lo devolvemos
+        const token = jwt.sign({userId: result},'secretPassword');
+        res.status(200).json(
+            {token: token}
+        );
+    });
 });
+      
 
 app.post("/team/pokemons", () => {
     res.status(200).send("Hello World!")

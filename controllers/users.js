@@ -28,9 +28,15 @@ const getUserIdFromUserName = (userName) =>{
 }
 
 const checkUserCredentials = (userId, password, done) => {
+    console.log('cheking user credentials');
     //Comprobar que las credenciales son correctas
-    let user = userDatabase[userId];
-    crypto.comparePassword(password, user.password, done);
+    let user = getUserIdFromUserName(userName);
+    if(user){
+        console.log(user);
+        crypto.comaprePassword(password, user.password, done);
+    } else {
+        done('Missing user');
+    }
 };
 
 exports.registerUser = registerUser;
