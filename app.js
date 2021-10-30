@@ -1,5 +1,8 @@
 const express = require('express');
 var passport = require("passport");
+const jwt = require('jsonwebtoken');
+const usersController = require('./controllers/users');
+
 require('./auth')(passport);
 
 const app = express();
@@ -16,10 +19,17 @@ app.get("/", (req, res) => {
 
 app.post('/login' , (req, res) => {
     // Comprobamos credenciales
-    //Si no son validad error
+    usersController.checkUserCredentials(req.body.user, req.body.password, (err, result) => {
+        //Si no son validad error
+        if(!result){
+            return res.status(401).json({message : "Usuario o contraseña incorrectos"});
+        }
+    })
+    
     //Si son validas, generamos un JWT y lo devolvemos
+    const token = jwt.sign({userId: req.body.user});
     res.status(200).json(
-        {token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMTMxIiwibmFtZSI6IkZlcm5hbmRvIExlb24gRnJhbmNvIiwiaWF0IjoxNTE2MjM5MDIyfQ.t3MeybIzL6Ti_OmvufqGmjFRn9lAWL8HBpLA12JIKds'}
+        {token: token}
     )
 });
 
