@@ -16,7 +16,7 @@ app.get("/", (req, res) => {
 
 app.post('/login' , (req, res) => {
     res.status(200).json(
-        {token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.XbPfbIHMI6arZ3Y922BhjWgQzWXcXNrz0ogtVhfEd2o'}
+        {token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMTMxIiwibmFtZSI6IkZlcm5hbmRvIExlb24gRnJhbmNvIiwiaWF0IjoxNTE2MjM5MDIyfQ.t3MeybIzL6Ti_OmvufqGmjFRn9lAWL8HBpLA12JIKds'}
     )
 });
 
