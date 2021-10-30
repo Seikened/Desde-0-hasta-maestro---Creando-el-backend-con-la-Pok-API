@@ -1,5 +1,5 @@
 const uuid = require('uuid');
-const crypto = require('./crypto.js')
+const crypto = require('../crypto.js')
 const userDatabase = {
     '0001': { 
         'password': '',
@@ -10,19 +10,29 @@ const userDatabase = {
 // userId -> password
 
 const registerUser = (usarName, password) => {
-    crypto.hashPassword(password), (err, result) => {
-            //Guardar en la base de datos nuetsro usuario
-
+    let hashedPwd = crypto.hashPasswordSync(password);
+        //Guardar en la base de datos nuetsro usuario
         userDatabase[uuid.v4()]={
             userName: usarName,
-            password: result
+            password: hashedPwd
+        }
+}
+
+
+const getUserIdFromUserName = (userName) =>{
+    for (let user in userDatabase){
+        if(userDatabase[user].userName == userName){
+            return userDatabase[user];
         }
     }
 }
-
 
 const checkUserCredentials = (userId, password, done) => {
     //Comprobar que las credenciales son correctas
     let user = userDatabase[userId];
     crypto.comparePassword(password, user.password, done);
-}
+};
+
+exports.registerUser = registerUser;
+exports.getUserIdFromUserName = getUserIdFromUserName;
+exports.checkUserCredentials = checkUserCredentials;

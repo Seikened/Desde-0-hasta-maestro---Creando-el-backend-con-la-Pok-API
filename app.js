@@ -1,11 +1,15 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 var passport = require("passport");
 const jwt = require('jsonwebtoken');
-const usersController = require('./controllers/users');
+
+const usersController = require('./controllers/users.js');
+usersController.registerUser('seiken', '2131');
 
 require('./auth')(passport);
 
 const app = express();
+app.use(bodyParser.json());
 app.use(passport.initialize());
 
 const port = 3000;
