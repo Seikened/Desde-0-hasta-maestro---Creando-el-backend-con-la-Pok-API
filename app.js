@@ -15,6 +15,9 @@ app.get("/", (req, res) => {
 
 
 app.post('/login' , (req, res) => {
+    // Comprobamos credenciales
+    //Si no son validad error
+    //Si son validas, generamos un JWT y lo devolvemos
     res.status(200).json(
         {token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMTMxIiwibmFtZSI6IkZlcm5hbmRvIExlb24gRnJhbmNvIiwiaWF0IjoxNTE2MjM5MDIyfQ.t3MeybIzL6Ti_OmvufqGmjFRn9lAWL8HBpLA12JIKds'}
     )
