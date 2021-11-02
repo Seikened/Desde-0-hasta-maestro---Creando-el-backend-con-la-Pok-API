@@ -19,7 +19,7 @@ router.route('/login')
         } else if (!req.body.user || !req.body.password){
             return res.status(400).json({message: 'Missing data'});
         }
-        // Comprobamos crdenciales
+        // Comprobamos credenciales
         usersController.checkUserCredentials(req.body.user, req.body.password, (err, result) => {
             // Si no son validas, error
             if(err || !result){
