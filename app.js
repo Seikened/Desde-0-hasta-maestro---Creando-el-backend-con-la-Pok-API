@@ -5,7 +5,7 @@ var passport = require("passport");
 // Routes
 const authRoutes = require('./routers/auth').router;
 
-require('./routers/auth')(passport);
+require('C:/Users/ferna/OneDrive/Documentos/GitHub/ProyectoBackend/routers/auth.js')(passport);
 
 const app = express();
 app.use(bodyParser.json());
