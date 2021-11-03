@@ -9,11 +9,11 @@ const userDatabase = {
 };
 // userId -> password
 
-const registerUser = (usarName, password) => {
+const registerUser = (userName, password) => {
     let hashedPwd = crypto.hashPasswordSync(password);
         //Guardar en la base de datos nuetsro usuario
         userDatabase[uuid.v4()]={
-            userName: usarName,
+            userName: userName,
             password: hashedPwd
         }
 }

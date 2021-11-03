@@ -1,11 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-var passport = require("passport");
 
 // Routes
 const authRoutes = require('./routers/auth').router;
-
-require('C:/Users/ferna/OneDrive/Documentos/GitHub/ProyectoBackend/routers/auth.js')(passport);
+const teamsRoutes = require('./routers/teams').router;
 
 const app = express();
 app.use(bodyParser.json());
@@ -17,7 +15,8 @@ app.get("/", (req, res) => {
     //res es la respuesta
     res.status(200).send("Hello World!")
 });
-app.use('/auth', authRoutes)   
+app.use('/auth', authRoutes);
+app.use('/teams', teamsRoutes);
 
 app.post("/team/pokemons", () => {
     res.status(200).send("Hello World!")
